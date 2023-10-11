@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    
+    <style>
+        body, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0; 
+            display: flex;
+            justify-content: flex-end; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background-image: linear-gradient(to right, #ff5722, #f44336); 
+            background-clip: text;
+            -webkit-background-clip: text; 
+            color: transparent; 
+        }
+        
+        .nav-links .button {
+            padding: 10px 20px;
+            border: 2px solid transparent; 
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer; /* Add a pointer cursor to indicate clickability */
+        }
+
+        .nav-links .button:hover {
+            background-color: #ff5722;
+            border-color: #000; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a id="logoutButton" style="cursor: pointer;">Logout</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="#">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div style="text-align:center">
+        <h1 style="font-size:60px">Member zone</h1>      
+    </div>
+    <h1 id="welcomeMessage">Welcome, Guest</h1>
+
+    <script>
+        // Function to get the value of a cookie by name
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Retrieve the username from the cookie
+        const username = getCookie("username");
+
+        if (username) {
+            // Display the welcome message with the username
+            document.getElementById("welcomeMessage").textContent = `Welcome, ${username}`;
+        }
+
+        // Add an event listener to the Logout button
+        document.getElementById("logoutButton").addEventListener("click", function () {
+            // Clear cookies by setting them to expire immediately
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                const eqPos = cookie.indexOf("=");
+                const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+
+            // Redirect to the login page
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

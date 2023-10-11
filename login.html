@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+     
+        body, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0; 
+            display: flex;
+            justify-content: flex-end; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+       
+        .nav-links a:hover {
+            color: #ff5722;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f44336;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-container">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="button-container">
+                <button type="submit">Login</button>
+                <a href="signup.html"><button type="button">Sign Up</button></a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+    
+            // Retrieve stored users from local storage
+            const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    
+            // Check if the provided username and password match any stored user
+            const user = storedUsers.find((u) => u.username === username && u.password === password);
+    
+            if (user) {
+                if (username === "Admin" && password === "Jethro5621!") {
+                    // Set a session or persistent cookie to remember the user
+                    document.cookie = "username=" + username;
+                    // Redirect to the "admin_zone" page if admin credentials are provided
+                    window.location.href = "admin_zone.html";
+                } else {
+                    // Set a session or persistent cookie to remember the user
+                    document.cookie = "username=" + username;
+                    // Redirect to the "member_zone" page on successful login
+                    window.location.href = "member_zone.html";
+                }
+            } else {
+                alert("Incorrect username or password.");
+            }
+        });
+    
+        // You can add a "Sign Out" button that clears the cookie
+        document.getElementById("signOutButton").addEventListener("click", function () {
+            // Clear the username cookie to sign the user out
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // Redirect to the login page
+            window.location.href = "login.html";
+        });
+    </script>
+    
+    
+</body>
+</html>
